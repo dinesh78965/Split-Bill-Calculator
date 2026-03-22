@@ -1,45 +1,43 @@
-# 💰 Split Bill Calculator with Stellar Blockchain
+# 💰 Split Bill Calculator
 
-A modern, user-friendly web application that simplifies splitting bills and sending payments using XLM (Stellar Lumens) on the Stellar blockchain. Perfect for group expenses, dinners, trips, and shared costs!
+A modern bill splitting application with Stellar blockchain integration for XLM payments. Split bills easily and send payments with transaction tracking.
 
-## 🌟 Features
+## 📸 Screenshots
 
-### ✅ Wallet Management
-- Generate Stellar-compatible wallets instantly
-- Display wallet address and balance
-- Auto-initialize with 10,000 XLM (testnet simulation)
+### 🔐 Wallet Connection
+![Wallet Connect](wallet-connect.png)
 
-### ✅ Bill Splitting
-- Input total bill amount in USD
-- Configure XLM/USD exchange rate
-- Automatic equal split among all participants
-- Support for custom participant names
-- Add/remove participants dynamically
+*Generate Stellar wallet and view XLM balance*
 
-### ✅ Blockchain Transactions
-- Send XLM payments to multiple recipients
-- Real-time transaction processing
-- Transaction confirmation with block numbers
-- Detailed transaction history with hashes
+### 🧮 Split Calculation
+![Split Calculation](split-calculation.png)
 
-### ✅ User Interface
-- Responsive design for mobile and desktop
-- Smooth animations and transitions
-- Real-time notifications
-- Transaction history tracking
+*Calculate equal split with USD to XLM conversion*
 
-## 🚀 Live Demo
+### 💸 Transaction History
+![Transaction History](transaction-history.png)
 
-[Add your live demo link here once deployed]
+*Track all payments with transaction hashes*
 
-## 📋 Prerequisites
+## 🚀 Features
 
-- Any modern web browser (Chrome, Firefox, Safari, Edge)
-- No installation required - runs directly in browser!
+- ✅ **Wallet Connect** - Generate Stellar wallet with 10,000 XLM
+- ✅ **Balance Fetch** - Real-time XLM balance display
+- ✅ **Split Logic** - USD to XLM conversion with equal split
+- ✅ **Transaction Send** - Send XLM payments to multiple addresses
+- ✅ **Success Messages** - Real-time notifications and history
 
-## 🛠️ Installation
+## 📱 Live Demo
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/split-bill-calculator.git
-   cd split-bill-calculator
+[Click here to use the app](https://dinesh78965.github.io/Split-Bill-Calculator/)
+
+*Note: Enable GitHub Pages in Settings → Pages to view live demo*
+
+## 🛠️ Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Stellar Blockchain Simulation
+
+## 📁 Project Structure
