@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Split Bill Calculator - XLM Payments</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Split Bill Calculator</h1>
+            <p>Split bills easily and send XLM payments via Stellar Blockchain</p>
+            <div class="stellar-badge">
+                ⭐ Powered by Stellar Network (Testnet Simulation)
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Example Badge -->
+            <div class="example-badge" onclick="runExample()">
+                🧪 Click to run example: Total = $100, Rate = $0.12/XLM → Each pays 208.33 XLM
+            </div>
+
+            <!-- Wallet Section -->
+            <div class="wallet-section">
+                <div class="wallet-status">
+                    <div>
+                        <strong>🔐 Wallet Status</strong>
+                        <div id="walletAddress" style="font-size: 12px; font-family: monospace; margin-top: 5px;">Not Connected</div>
+                        <div id="walletSecret" style="font-size: 10px; font-family: monospace; margin-top: 5px; color: #666; display: none;"></div>
+                    </div>
+                    <button class="btn-warning" id="connectWalletBtn" onclick="connectWallet()" style="width: auto; margin: 0; padding: 8px 20px;">
+                        🔌 Generate Stellar Wallet
+                    </button>
+                </div>
+                <div class="balance-display">
+                    <div class="balance-label">💰 XLM Balance</div>
+                    <div class="balance-value" id="xlmBalance">
+                        0.00 <span>XLM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bill Input -->
+            <div class="input-group">
+                <label>💰 Total Bill Amount (USD)</label>
+                <input type="number" id="totalAmount" placeholder="Enter total amount in USD" step="0.01" value="100">
+            </div>
+            
+            <div class="input-group">
+                <label>💵 XLM/USD Rate</label>
+                <input type="number" id="xlmRate" placeholder="XLM to USD rate" value="0.12" step="0.001">
+                <small style="color: #666;">1 XLM = ? USD (current market rate)</small>
+            </div>
+            
+            <div class="people-list" id="peopleList">
+                <div class="person-item" data-id="0">
+                    <input type="text" class="person-name" placeholder="Person name" value="Alice">
+                    <input type="text" class="person-address" placeholder="Stellar wallet address" value="GA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVSGZ">
+                    <input type="number" class="person-amount" placeholder="Amount in XLM" step="0.0000001" readonly style="background: #f5f5f5;">
+                    <button class="remove-person" onclick="removePerson(0)">×</button>
+                </div>
+                <div class="person-item" data-id="1">
+                    <input type="text" class="person-name" placeholder="Person name" value="Bob">
+                    <input type="text" class="person-address" placeholder="Stellar wallet address" value="GBRPYHIL2CI3FNQ4BXLFMNDLFJUNPU2HY3ZMFSHONUCEOASW7QC7OX2H">
+                    <input type="number" class="person-amount" placeholder="Amount in XLM" step="0.0000001" readonly style="background: #f5f5f5;">
+                    <button class="remove-person" onclick="removePerson(1)">×</button>
+                </div>
+                <div class="person-item" data-id="2">
+                    <input type="text" class="person-name" placeholder="Person name" value="Charlie">
+                    <input type="text" class="person-address" placeholder="Stellar wallet address" value="GC2K7GCT6XQXZ3YF56U6LQN2LHY4W4K4YV3Z7J4QY5X6Z7A8B9C0D1E2F">
+                    <input type="number" class="person-amount" placeholder="Amount in XLM" step="0.0000001" readonly style="background: #f5f5f5;">
+                    <button class="remove-person" onclick="removePerson(2)">×</button>
+                </div>
+                <div class="person-item" data-id="3">
+                    <input type="text" class="person-name" placeholder="Person name" value="Diana">
+                    <input type="text" class="person-address" placeholder="Stellar wallet address" value="GDJQY5Z7A8B9C0D1E2F3G4H5I6J7K8L9M0N1O2P3Q4R5S6T7U8V9W0X1Y2Z">
+                    <input type="number" class="person-amount" placeholder="Amount in XLM" step="0.0000001" readonly style="background: #f5f5f5;">
+                    <button class="remove-person" onclick="removePerson(3)">×</button>
+                </div>
+            </div>
+            
+            <button class="btn add-person-btn" onclick="addPerson()">+ Add Person</button>
+            <button class="btn" onclick="calculateSplit()">🧮 Calculate Split</button>
+            
+            <div class="results" id="results" style="display: none;">
+                <h3 style="margin-bottom: 15px;">📊 Split Details</h3>
+                <div class="result-item">
+                    <span class="result-label">Total Bill:</span>
+                    <span class="result-value" id="totalBillUSD">$0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">XLM Rate:</span>
+                    <span class="result-value" id="xlmRateDisplay">0.00 XLM/USD</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Total XLM Required:</span>
+                    <span class="result-value" id="totalXLM">0.00 XLM</span>
+                </div>
+                <div id="individualSplits"></div>
+            </div>
+            
+            <button class="btn btn-success" id="sendPaymentsBtn" onclick="sendPayments()" style="display: none;">
+                💸 Send XLM Payments
+            </button>
+
+            <!-- Transaction History -->
+            <div id="transactionHistory" style="margin-top: 20px; display: none;">
+                <h3>📜 Transaction History</h3>
+                <div id="transactionList" class="transaction-list"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="notification" class="notification">
+        <span id="notificationIcon"></span>
+        <span id="notificationMessage"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
